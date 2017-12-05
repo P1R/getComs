@@ -14,14 +14,14 @@ if __name__ == "__main__":
     if (len(sys.argv) == 3):
         print("Opening " + sys.argv[1])
         print("Out is "+ sys.argv[2])
-        #Flag dentro de función
+        #Flag when its inside a function
         inFunc = False
-        #variable salida, modo escritura
+        #Output variable, write mode on
         OuFile = open(sys.argv[2], 'w')
-        #examinamos el archivo py
+        #look at the py file and get what we need
         with open(sys.argv[1],'U') as f:
             for line in f:
-                #si inicio la función encuentra docstring:
+                #if inside the function there is the docstring, get it:
                 if inFunc == True: 
                     match = re.search("('''.*?''')|(\"\"\".*?\"\"\")", line)
                     inFunc = False
@@ -29,11 +29,17 @@ if __name__ == "__main__":
                         print(match.group())
                         OuFile.write(match.group())
                         OuFile.write('\n')
-                #si encontro en la linea declaración de función
+                #if a function declaration we get it and set inside function flag
                 if 'def' in line and ':' in line:
                     inFunc = True
                     print("function {} found".format(line.split()[1]))
                     OuFile.write(line.split()[1] + '\n')
+                #get comments
+                matchHash = re.search("(#.*?\n)", line)
+                if matchHash:
+                    print(matchHash.group())
+                    OuFile.write(matchHash.group())
+
         f.close()
         OuFile.close()
     #need help?

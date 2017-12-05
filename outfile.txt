@@ -1,4 +1,8 @@
 afunction():
 '''first docstring'''
+#some comments
+#some more
 asecondfunction():
 """third doctstring"""
+#some comments
+#some more
