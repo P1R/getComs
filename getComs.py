@@ -23,17 +23,17 @@ if __name__ == "__main__":
             for line in f:
                 #si inicio la función encuentra docstring:
                 if inFunc == True: 
-                    match = re.search("('''.*?''')", line)
+                    match = re.search("('''.*?''')|(\"\"\".*?\"\"\")", line)
                     inFunc = False
-                    print(match)
-                    print(type(match))
+                    if match:
+                        print(match.group())
+                        OuFile.write(match.group())
+                        OuFile.write('\n')
                 #si encontro en la linea declaración de función
                 if 'def' in line and ':' in line:
                     inFunc = True
-
-                #if match != None:
-                #OuFile.write(match)
-
+                    print("function {} found".format(line.split()[1]))
+                    OuFile.write(line.split()[1] + '\n')
         f.close()
         OuFile.close()
     #need help?

@@ -1,0 +1,4 @@
+afunction():
+'''first docstring'''
+asecondfunction():
+"""third doctstring"""
